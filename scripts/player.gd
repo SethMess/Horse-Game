@@ -20,6 +20,7 @@ func _physics_process(delta):
 	# Handle jump
 	if Input.is_action_just_pressed("ui_accept") and z_position == 0:
 		z_velocity = JUMP_VELOCITY
+		#SET TO JUMP ANIMATION
 
 	# Apply gravity and jump height
 	if z_position < 0 or z_velocity != 0:

@@ -165,7 +165,7 @@ position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_i33sb")
 animation = &"purple_run"
 autoplay = "purple_run"
-frame_progress = 0.24056
+frame_progress = 0.400679
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
