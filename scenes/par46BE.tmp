@@ -8,16 +8,15 @@ script/source = "extends ParallaxBackground
 @onready var background_layer = $BackgroundLayer
 @onready var grass_layer = $GrassLayer
 
-@export var BACKGROUND_SPEED = 10.0
-@export var GRASS_SPEED = Globals.scroll_speed
+@export var BACKGROUND_SPEED = -10.0
+@export var GRASS_SPEED = -30.0
 
 func _ready():
-	#set_ignore_camera_zoom(true)
-	pass
+	set_ignore_camera_zoom(true)
 
 func _process(delta):
-	background_layer.motion_offset.x -= BACKGROUND_SPEED * delta
-	grass_layer.motion_offset.x -= GRASS_SPEED * delta
+	background_layer.motion_offset.x += BACKGROUND_SPEED * delta
+	grass_layer.motion_offset.x += GRASS_SPEED * delta
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t4p85"]

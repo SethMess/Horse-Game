@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/river_obstacle.gd" id="1_bi5qe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1j7qa"]
-size = Vector2(20, 88)
+size = Vector2(18, 88)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wdorf"]
 atlas = ExtResource("1_4bski")
