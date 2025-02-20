@@ -123,10 +123,10 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c3lnd")
 }, {
-"duration": 2.0,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jdsmh")
 }, {
-"duration": 5.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_ov1b4")
 }, {
 "duration": 1.0,
@@ -134,7 +134,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"purple_jump",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 2.0,
@@ -161,12 +161,9 @@ radius = 3.0
 script = ExtResource("1_wcxj8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_i33sb")
-animation = &"purple_run"
+animation = &"purple_jump"
 autoplay = "purple_run"
-frame_progress = 0.400679
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_3wwx5")

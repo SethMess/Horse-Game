@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=4 uid="uid://dttwx8o63njq6"]
+
+[ext_resource type="PackedScene" uid="uid://blk0nm6o4teb2" path="res://scenes/parallax_background.tscn" id="1_xccm2"]
+[ext_resource type="Texture2D" uid="uid://dnkslufyu721i" path="res://Sprites/Terrain.png" id="2_c8yf2"]
+[ext_resource type="PackedScene" uid="uid://dsyma6s8cdxqt" path="res://scenes/player_horse.tscn" id="3_1j228"]
+[ext_resource type="PackedScene" uid="uid://qcpxk2ufqg2j" path="res://scenes/rock_obstacle.tscn" id="4_br754"]
+[ext_resource type="PackedScene" uid="uid://bntt4wse0jq1v" path="res://scenes/tree_obstacle.tscn" id="5_1wc2b"]
+[ext_resource type="PackedScene" uid="uid://bgoitqkl5swd7" path="res://scenes/river_obstacle.tscn" id="6_0kdhi"]
+[ext_resource type="Script" path="res://scenes/river_obstacle.gd" id="7_iepyp"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pt3fo"]
+texture = ExtResource("2_c8yf2")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+4:0/0 = 0
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
+
+[sub_resource type="TileSet" id="TileSet_1xqwh"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_pt3fo")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_g0fxq"]
+distance = -1.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uoy03"]
+normal = Vector2(0, 1)
+
+[node name="Game" type="Node2D"]
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("1_xccm2")]
+
+[node name="ObstacleSpawner" type="Node2D" parent="."]
+
+[node name="Obstacles" type="Node2D" parent="ObstacleSpawner"]
+
+[node name="RockObstacle" parent="ObstacleSpawner/Obstacles" instance=ExtResource("4_br754")]
+position = Vector2(108, 52)
+
+[node name="TreeObstacle" parent="ObstacleSpawner/Obstacles" instance=ExtResource("5_1wc2b")]
+position = Vector2(108, 44)
+
+[node name="RiverObstacle" parent="ObstacleSpawner/Obstacles" instance=ExtResource("6_0kdhi")]
+position = Vector2(136, 24)
+script = ExtResource("7_iepyp")
+
+[node name="obstacles" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAPAAMAAAACAAAAAAAMAAoAAAACAAAAAAAPAAwAAAACAAAAAAAMAAsAAAACAAAAAAANAAoAAAACAAAAAAALAAUAAAADAAAAAAAGAAsAAAADAAAAAAASAAMAAAAGAAAAAAATAAMAAAAHAAAAAAAUAAMAAAAAAAAAAAASAAQAAAAGAAAAAAATAAQAAAAHAAAAAAAUAAQAAAAAAAAAAAASAAUAAAAGAAAAAAATAAUAAAAHAAAAAAAUAAUAAAAAAAAAAAASAAYAAAAGAAAAAAATAAYAAAAHAAAAAAAUAAYAAAAAAAAAAAASAAcAAAAGAAAAAAATAAcAAAAHAAAAAAAUAAcAAAAAAAAAAAASAAgAAAAGAAAAAAATAAgAAAAHAAAAAAAUAAgAAAAAAAAAAAASAAkAAAAGAAAAAAATAAkAAAAHAAAAAAAUAAkAAAAAAAAAAAASAAoAAAAGAAAAAAATAAoAAAAHAAAAAAAUAAoAAAAAAAAAAAASAAsAAAAGAAAAAAATAAsAAAAHAAAAAAAUAAsAAAAAAAAAAAASAAwAAAAGAAAAAAATAAwAAAAHAAAAAAAUAAwAAAAAAAAAAAASAA0AAAAGAAAAAAATAA0AAAAHAAAAAAAUAA0AAAAAAAAAAAAWAAsAAAADAAAAAAAIAAYAAAAFAAAAAAAJAAYAAAAHAAAAAAAJAAcAAAAHAAAAAAAIAAcAAAAFAAAAAAAIAAgAAAAFAAAAAAAIAAkAAAAFAAAAAAAIAAoAAAAFAAAAAAAIAAsAAAAFAAAAAAAIAAwAAAAFAAAAAAAIAA0AAAAFAAAAAAAJAAgAAAAHAAAAAAAJAAkAAAAHAAAAAAAJAAoAAAAHAAAAAAAJAAsAAAAHAAAAAAAJAAwAAAAHAAAAAAAJAA0AAAAHAAAAAAAJAAUAAAAHAAAAAAAJAAQAAAAHAAAAAAAJAAMAAAAHAAAAAAAIAAQAAAAFAAAAAAAIAAMAAAAFAAAAAAAIAAUAAAAFAAAAAAARAA0AAAAFAAAAAAARAAwAAAAFAAAAAAARAAsAAAAFAAAAAAARAAoAAAAFAAAAAAARAAkAAAAFAAAAAAARAAgAAAAFAAAAAAARAAcAAAAFAAAAAAARAAMAAAAFAAAAAAARAAQAAAAFAAAAAAARAAUAAAAFAAAAAAARAAYAAAAFAAAAAAA=")
+tile_set = SubResource("TileSet_1xqwh")
+
+[node name="player_horse" parent="." instance=ExtResource("3_1j228")]
+position = Vector2(42, 29)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(96, 54)
+zoom = Vector2(6, 6)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, 108)
+shape = SubResource("WorldBoundaryShape2D_g0fxq")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 24)
+shape = SubResource("WorldBoundaryShape2D_uoy03")

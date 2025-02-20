@@ -1,13 +1,16 @@
 extends CharacterBody2D
 
 const SPEED = 50.0
-const JUMP_VELOCITY = -120.0
+const JUMP_VELOCITY = -130.0
 const GRAVITY = 300.0
 
 var z_position = 0.0  # Height above ground (0 is on ground, negative is up)
 var z_velocity = 0.0
 
 @onready var sprite = $AnimatedSprite2D # Make sure this is the actual name of your sprite node
+@onready var collision_shape = $CollisionShape2D
+
+
 
 func _physics_process(delta):
 	# Handle 4-direction movement
@@ -20,7 +23,10 @@ func _physics_process(delta):
 	# Handle jump
 	if Input.is_action_just_pressed("ui_accept") and z_position == 0:
 		z_velocity = JUMP_VELOCITY
+		collision_shape.disabled = true
 		#SET TO JUMP ANIMATION
+		sprite.play("purple_jump")
+		
 
 	# Apply gravity and jump height
 	if z_position < 0 or z_velocity != 0:
@@ -31,6 +37,9 @@ func _physics_process(delta):
 		if z_position > 0:
 			z_position = 0
 			z_velocity = 0
+			
+			collision_shape.disabled = false
+			sprite.play("purple_run")
 
 	# Move player on X/Y freely
 	move_and_slide()

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://qcpxk2ufqg2j"]
+
+[ext_resource type="Script" path="res://rock_obstacle.gd" id="1_6anlp"]
+[ext_resource type="Texture2D" uid="uid://dnkslufyu721i" path="res://Sprites/Terrain.png" id="2_eakc7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngwlh"]
+size = Vector2(8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqvjj"]
+atlas = ExtResource("2_eakc7")
+region = Rect2(24, 0, 8, 8)
+
+[node name="RockObstacle" type="Area2D"]
+script = ExtResource("1_6anlp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_ngwlh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+texture = SubResource("AtlasTexture_mqvjj")

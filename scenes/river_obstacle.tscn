@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgoitqkl5swd7"]
+
+[ext_resource type="Texture2D" uid="uid://dnkslufyu721i" path="res://Sprites/Terrain.png" id="1_4bski"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1j7qa"]
+size = Vector2(20, 88)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdorf"]
+atlas = ExtResource("1_4bski")
+region = Rect2(40, 0, 24, 88)
+
+[node name="RiverObstacle" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 44)
+shape = SubResource("RectangleShape2D_1j7qa")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_repeat = 2
+offset_right = 24.0
+offset_bottom = 88.0
+texture = SubResource("AtlasTexture_wdorf")
+expand_mode = 4
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
