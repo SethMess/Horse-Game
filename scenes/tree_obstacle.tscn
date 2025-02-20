@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bntt4wse0jq1v"]
 
-[ext_resource type="Script" path="res://tree_obstacle.gd" id="1_v1cbm"]
+[ext_resource type="Script" path="res://scripts/tree_obstacle.gd" id="1_v1cbm"]
 [ext_resource type="Texture2D" uid="uid://dnkslufyu721i" path="res://Sprites/Terrain.png" id="2_aiiwa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2mai"]
@@ -20,3 +20,6 @@ shape = SubResource("RectangleShape2D_l2mai")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(4, 4)
 texture = SubResource("AtlasTexture_im5q3")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

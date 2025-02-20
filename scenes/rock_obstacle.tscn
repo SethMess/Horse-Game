@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://qcpxk2ufqg2j"]
 
-[ext_resource type="Script" path="res://rock_obstacle.gd" id="1_6anlp"]
+[ext_resource type="Script" path="res://scripts/rock_obstacle.gd" id="1_6anlp"]
 [ext_resource type="Texture2D" uid="uid://dnkslufyu721i" path="res://Sprites/Terrain.png" id="2_eakc7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ngwlh"]
