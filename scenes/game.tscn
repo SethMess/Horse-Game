@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dttwx8o63njq6"]
+[gd_scene load_steps=10 format=3 uid="uid://dttwx8o63njq6"]
 
 [ext_resource type="PackedScene" uid="uid://blk0nm6o4teb2" path="res://scenes/parallax_background.tscn" id="1_xccm2"]
 [ext_resource type="Texture2D" uid="uid://dnkslufyu721i" path="res://Sprites/Terrain.png" id="2_c8yf2"]
 [ext_resource type="PackedScene" uid="uid://cxj1ykkwc8535" path="res://scenes/obstacle_spawner.tscn" id="2_dpgns"]
 [ext_resource type="PackedScene" uid="uid://dsyma6s8cdxqt" path="res://scenes/player_horse.tscn" id="3_1j228"]
+[ext_resource type="Script" path="res://scripts/herd.gd" id="5_0llte"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pt3fo"]
 texture = ExtResource("2_c8yf2")
@@ -42,9 +43,6 @@ normal = Vector2(0, 1)
 [node name="obstacles" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_1xqwh")
 
-[node name="player_horse" parent="." instance=ExtResource("3_1j228")]
-position = Vector2(42, 29)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(96, 54)
@@ -59,3 +57,16 @@ shape = SubResource("WorldBoundaryShape2D_g0fxq")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(0, 24)
 shape = SubResource("WorldBoundaryShape2D_uoy03")
+
+[node name="Herd" type="Node2D" parent="."]
+script = ExtResource("5_0llte")
+
+[node name="player_horse" parent="Herd" instance=ExtResource("3_1j228")]
+position = Vector2(42, 29)
+
+[node name="Timer" type="Timer" parent="Herd"]
+autostart = true
+
+[connection signal="player_hit" from="Herd/player_horse" to="Herd" method="_on_player_horse_player_hit"]
+[connection signal="player_jumped" from="Herd/player_horse" to="Herd" method="_on_player_horse_player_jumped"]
+[connection signal="timeout" from="Herd/Timer" to="Herd" method="_on_timer_timeout"]

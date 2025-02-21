@@ -10,7 +10,8 @@ size = Vector2(4, 6)
 atlas = ExtResource("2_eakc7")
 region = Rect2(24, 0, 8, 8)
 
-[node name="RockObstacle" type="Area2D"]
+[node name="RockObstacle" type="Area2D" groups=["obstacle"]]
+collision_mask = 3
 script = ExtResource("1_6anlp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -10,7 +10,8 @@ size = Vector2(18, 88)
 atlas = ExtResource("1_4bski")
 region = Rect2(40, 0, 24, 88)
 
-[node name="RiverObstacle" type="Area2D"]
+[node name="RiverObstacle" type="Area2D" groups=["obstacle"]]
+collision_mask = 3
 script = ExtResource("1_bi5qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

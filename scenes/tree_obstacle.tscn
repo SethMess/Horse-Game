@@ -10,7 +10,8 @@ size = Vector2(4, 6)
 atlas = ExtResource("2_aiiwa")
 region = Rect2(16, 0, 8, 8)
 
-[node name="TreeObstacle" type="Area2D"]
+[node name="TreeObstacle" type="Area2D" groups=["obstacle"]]
+collision_mask = 3
 script = ExtResource("1_v1cbm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
