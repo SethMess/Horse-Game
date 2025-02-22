@@ -1,13 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dttwx8o63njq6"]
+[gd_scene load_steps=10 format=3 uid="uid://dttwx8o63njq6"]
 
-[ext_resource type="Script" path="res://scripts/game.gd" id="1_7labs"]
 [ext_resource type="PackedScene" uid="uid://blk0nm6o4teb2" path="res://scenes/parallax_background.tscn" id="1_xccm2"]
 [ext_resource type="Texture2D" uid="uid://dnkslufyu721i" path="res://Sprites/Terrain.png" id="2_c8yf2"]
 [ext_resource type="PackedScene" uid="uid://cxj1ykkwc8535" path="res://scenes/obstacle_spawner.tscn" id="2_dpgns"]
 [ext_resource type="PackedScene" uid="uid://dsyma6s8cdxqt" path="res://scenes/player_horse.tscn" id="3_1j228"]
 [ext_resource type="Script" path="res://scripts/herd.gd" id="5_0llte"]
-[ext_resource type="Script" path="res://scripts/score_manager.gd" id="6_23eem"]
-[ext_resource type="Script" path="res://scenes/canvas_layer.gd" id="7_rty47"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pt3fo"]
 texture = ExtResource("2_c8yf2")
@@ -38,7 +35,6 @@ distance = -1.0
 normal = Vector2(0, 1)
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_7labs")
 
 [node name="ParallaxBackground" parent="." instance=ExtResource("1_xccm2")]
 
@@ -71,10 +67,7 @@ position = Vector2(42, 29)
 [node name="Timer" type="Timer" parent="Herd"]
 autostart = true
 
-[node name="ScoreManager" type="Node2D" parent="."]
-script = ExtResource("6_23eem")
-
-[node name="ScoreLabel" type="Label" parent="ScoreManager"]
+[node name="ScoreLabel" type="Label" parent="."]
 offset_left = 6.0
 offset_top = 3.0
 offset_right = 47.0
@@ -84,11 +77,6 @@ theme_override_colors/font_color = Color(0.167208, 0.242113, 0.285276, 1)
 text = "100
 "
 
-[node name="PauseMenu" type="CanvasLayer" parent="."]
-process_mode = 3
-scale = Vector2(100, 100)
-transform = Transform2D(100, 0, 0, 100, 0, 0)
-script = ExtResource("7_rty47")
-
+[connection signal="player_hit" from="Herd/player_horse" to="Herd" method="_on_player_horse_player_hit"]
 [connection signal="player_jumped" from="Herd/player_horse" to="Herd" method="_on_player_horse_player_jumped"]
 [connection signal="timeout" from="Herd/Timer" to="Herd" method="_on_timer_timeout"]

@@ -9,7 +9,7 @@ func _ready():
 	#player_hit.connect(_on_player_horse_player_hit)
 	#_on_player_horse_player_hit.connect(player_hit)
 # Call this when the player collects a new horse.
-func add_follower():
+func add_follower(pos, index):
 	var follower = preload("res://scenes/follower_horse.tscn").instantiate()
 	
 	# Determine the target: if there's no follower yet, follow the player.
@@ -23,21 +23,31 @@ func add_follower():
 		follower.target = followers[followers.size() - 1]
 		# Offset subsequent followers slightly for a natural formation.
 		follower.position_offset = Vector2(-10, 0)# + Vector2(0, 5 * followers.size())
-	
+	follower.set_position(pos)
+	follower.set_color(index)
+	#follower.position
 	followers.append(follower)
-	add_child(follower)
+	#call_deferred(add_child(follower))
+	call_deferred("add_child", follower)
 
 
 func _on_timer_timeout():
-	if followers.size() < 5:
-		add_follower()
+	pass
+	#if followers.size() < 5:
+		#add_follower()
 	#print("added follower")
 	#pass # Replace with function body.
+	
+func _horse_collected(pos, index):
+	#print("adding follower")
+	if followers.size() < 10:
+		print(pos)
+		add_follower(pos, index)
 
 
 func _on_player_horse_player_jumped():
 	for i in range(followers.size()):
-		var delay = (i + 1) * 0.25  # Delay increases for each follower
+		var delay = (i + 1) * 0.20  # Delay increases for each follower
 		var timer = Timer.new()
 		timer.one_shot = true
 		timer.wait_time = delay
@@ -48,14 +58,22 @@ func _on_player_horse_player_jumped():
 		timer.start()
 
 func _on_follower_jump_timeout(follower):
-	follower.jump()
-	
+	if follower != null:
+		follower.jump()
+
+
 func remove_follower():
 	if followers.size() > 0:
 		var removed = followers.pop_back()
 		removed.queue_free()
+	else:
+		print("GAME OVER")
+		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 
 
-func _on_player_horse_player_hit():
-	print("removing follower")
+func _on_obstacle_body_entered(body):
+	# Check if the colliding body is the player
+	# (assuming the player's collision shape has been added to a group "Player")
+	#if body.is_in_group("Player"):
+	print("in Herd: " + str(body))
 	remove_follower()

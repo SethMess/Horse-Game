@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxj1ykkwc8535"]
+
+[ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="1_x8kpu"]
+[ext_resource type="PackedScene" uid="uid://qcpxk2ufqg2j" path="res://scenes/rock_obstacle.tscn" id="2_ntok8"]
+[ext_resource type="PackedScene" uid="uid://bntt4wse0jq1v" path="res://scenes/tree_obstacle.tscn" id="3_iv4s7"]
+[ext_resource type="PackedScene" uid="uid://bgoitqkl5swd7" path="res://scenes/river_obstacle.tscn" id="4_ar8jq"]
+
+[node name="ObstacleSpawner" type="Node2D"]
+script = ExtResource("1_x8kpu")
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="RockObstacle" parent="Obstacles" instance=ExtResource("2_ntok8")]
+position = Vector2(108, 52)
+
+[node name="TreeObstacle" parent="Obstacles" instance=ExtResource("3_iv4s7")]
+position = Vector2(108, 44)
+
+[node name="RiverObstacle" parent="Obstacles" instance=ExtResource("4_ar8jq")]
+position = Vector2(136, 24)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(192, 24)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+autostart = true
+
+[connection signal="player_hit" from="Obstacles/RockObstacle" to="." method="_on_obstacle_player_hit"]
+[connection signal="player_hit" from="Obstacles/TreeObstacle" to="." method="_on_obstacle_player_hit"]
+[connection signal="player_hit" from="Obstacles/RiverObstacle" to="." method="_on_obstacle_player_hit"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

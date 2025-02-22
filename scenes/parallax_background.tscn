@@ -9,13 +9,14 @@ script/source = "extends ParallaxBackground
 @onready var grass_layer = $GrassLayer
 
 @export var BACKGROUND_SPEED = 10.0
-@export var GRASS_SPEED = Globals.scroll_speed
+@export var GRASS_SPEED:float= Globals.scroll_speed
 
 func _ready():
 	#set_ignore_camera_zoom(true)
 	pass
 
 func _process(delta):
+	GRASS_SPEED = Globals.scroll_speed
 	background_layer.motion_offset.x -= BACKGROUND_SPEED * delta
 	grass_layer.motion_offset.x -= GRASS_SPEED * delta
 "

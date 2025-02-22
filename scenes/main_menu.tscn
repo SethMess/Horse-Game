@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcjajtibfrlv1"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_ppuvq"]
+
+[node name="MainMenu" type="Panel"]
+offset_right = 1156.0
+offset_bottom = 649.0
+script = ExtResource("1_ppuvq")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 445.0
+offset_top = 466.0
+offset_right = 711.0
+offset_bottom = 548.0
+text = "Start Game"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 313.0
+offset_top = 101.0
+offset_right = 504.0
+offset_bottom = 161.0
+scale = Vector2(3, 3)
+text = "Welcome to Herd Dash
+
+"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 294.0
+offset_top = 249.0
+offset_right = 882.0
+offset_bottom = 416.0
+text = "How To Play:
+
+Collect Horses to let you survive a hit, avoid obsticles and survive as long as you can
+
+arrow keys to move and space to jump"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

@@ -12,10 +12,11 @@ var z_velocity = 0.0
 @onready var collision_shape_2d = $CollisionShape2D
 
 signal player_jumped
-signal player_hit
+#signal player_hit
 
 func _ready():
 	#this.connect(player_hit)
+	#collision_shape.connect("_on_body_entered", ) ####################GET THIS CONNECTED
 	pass
 	
 
@@ -72,8 +73,8 @@ func apply_squash_and_stretch():
 		sprite.scale = Vector2(1, 1) # Normal when grounded
 
 
-func _on_body_entered(body):
-	pass
-	#print(body)
-	#if body.is_in_group("obstacle"):  # make sure obstacles are in a group, e.g., "obstacle"
-		#player_hit.emit()
+#func _on_body_entered(body):
+	#pass
+	##print(body)
+	##if body.is_in_group("obstacle"):  # make sure obstacles are in a group, e.g., "obstacle"
+		###player_hit.emit()

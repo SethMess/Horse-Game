@@ -19,8 +19,11 @@ const GRAVITY = 300.0
 var z_position = 0.0  # Height above ground (0 is on ground, negative is up)
 var z_velocity = 0.0
 
+func set_color(i):
+	index = i
+
 func _ready():
-	position = Vector2(-30, 50)
+	#position = Vector2(-30, 50)
 	sprite.play(runs[index])
 
 func _physics_process(delta):
@@ -41,11 +44,14 @@ func _physics_process(delta):
 		
 		move_and_slide()
 
+
+
 func jump():
-	z_velocity = JUMP_VELOCITY
-	collision_shape.disabled = true
-	#SET TO JUMP ANIMATION
-	sprite.play(jumps[index])
+	if self != null and collision_shape != null:
+		z_velocity = JUMP_VELOCITY
+		collision_shape.disabled = true
+		#SET TO JUMP ANIMATION
+		sprite.play(jumps[index])
 
 
 
