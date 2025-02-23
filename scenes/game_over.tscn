@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://qrpttbt6f62x"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_rho5t"]
+[ext_resource type="Script" path="res://scenes/game_over.gd" id="1_27f6d"]
 
 [node name="Game Over" type="Panel"]
 offset_right = 1156.0
 offset_bottom = 649.0
-script = ExtResource("1_rho5t")
+script = ExtResource("1_27f6d")
 
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 0
@@ -34,8 +34,17 @@ offset_right = 882.0
 offset_bottom = 416.0
 text = "How To Play:
 
-Collect Horses to let you survive a hit, avoid obsticles and survive as long as you can
+Collect Horses to let you survive extra hits, avoid obsticles and survive as long as you can
 
-arrow keys to move and space to jump"
+Arrow keys or WASD to move and space to jump"
+
+[node name="ScoreLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 654.0
+offset_top = 112.0
+offset_right = 874.0
+offset_bottom = 186.0
+scale = Vector2(2, 2)
+text = "Score: 400"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

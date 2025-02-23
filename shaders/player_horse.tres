@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dqslfqm06yf5p"]
+
+[ext_resource type="Shader" path="res://shaders/player_horse.gdshader" id="1_6ggpd"]
+
+[resource]
+shader = ExtResource("1_6ggpd")
+shader_parameter/flash_strength = 0.0

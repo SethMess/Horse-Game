@@ -1,8 +1,20 @@
-[gd_scene load_steps=38 format=3 uid="uid://bienoi222756"]
+[gd_scene load_steps=40 format=3 uid="uid://bienoi222756"]
 
 [ext_resource type="Script" path="res://scripts/follower_horse.gd" id="1_pcke2"]
 [ext_resource type="Texture2D" uid="uid://byynxvngjfbau" path="res://Sprites/Horses sprites.png" id="1_y854l"]
 [ext_resource type="Texture2D" uid="uid://tppac765bswg" path="res://Horses sprites.png" id="2_p2u0y"]
+
+[sub_resource type="Gradient" id="Gradient_b14lr"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.118227, 0.384236, 0.669951)
+colors = PackedColorArray(0.205117, 0.205117, 0.205117, 1, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_l0ylc"]
+gradient = SubResource("Gradient_b14lr")
+width = 6
+height = 3
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05ipp"]
 atlas = ExtResource("1_y854l")
@@ -309,6 +321,11 @@ radius = 3.0
 [node name="follower_horse" type="CharacterBody2D"]
 collision_layer = 2
 script = ExtResource("1_pcke2")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(-4.47035e-07, 3.625)
+scale = Vector2(2, 1.6875)
+texture = SubResource("GradientTexture2D_l0ylc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8w62b")

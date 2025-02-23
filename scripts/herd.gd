@@ -3,7 +3,8 @@ extends Node2D
 # Herd.gd
 var followers := []
 @onready var player_horse = $player_horse
-
+const PLAYER_HIT = preload("res://scenes/player_hit.tscn")
+const EXPLOSION = preload("res://scenes/explosion.tscn")
 func _ready():
 	pass
 	#player_hit.connect(_on_player_horse_player_hit)
@@ -15,7 +16,7 @@ func add_follower(pos, index):
 	# Determine the target: if there's no follower yet, follow the player.
 	# Otherwise, follow the last follower in the array.
 	if followers.is_empty():
-		print("player" + str(player_horse))
+		#print("player" + str(player_horse))
 		follower.target = player_horse
 		# Optionally, set an offset for the first follower
 		follower.position_offset = Vector2(-10, 0)
@@ -41,7 +42,7 @@ func _on_timer_timeout():
 func _horse_collected(pos, index):
 	#print("adding follower")
 	if followers.size() < 10:
-		print(pos)
+		#print(pos)
 		add_follower(pos, index)
 
 
@@ -65,15 +66,51 @@ func _on_follower_jump_timeout(follower):
 func remove_follower():
 	if followers.size() > 0:
 		var removed = followers.pop_back()
+		var pos = removed.position
 		removed.queue_free()
+		_on_obstacle_player_hit(pos)
+		player_horse.flash_red(false)
 	else:
-		print("GAME OVER")
-		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+		# No followers remain, so trigger game over:
+		_on_obstacle_player_hit(player_horse.position)
+		#print("GAME OVER")
+		# Trigger flash effect
+		player_horse.flash_red(true)
+		
+		# Create a one-shot timer for a delay (e.g., 1 second)
+		var delay_timer = Timer.new()
+		delay_timer.one_shot = true
+		delay_timer.wait_time = 1.0  # 1 second delay
+		add_child(delay_timer)
+		delay_timer.start()
+		await delay_timer.timeout
+		_on_game_over()
+	
 
+func _on_game_over():
+	# Optionally remove/hide the player
+	#player_horse.call_deferred("queue_free")
+	#call_deferred("queue_free", player_horse)
+	# Assume you store the player's score in a global variable, for example Globals.score,
+	# or you could have a dedicated ScoreManager.
+	Globals.final_score = Globals.score  # Save the final score to show on the Game Over screen.
+	
+	# Change to the Game Over scene.
+	# One common method is to call change_scene with the path:
+	get_tree().call_deferred("change_scene_to_file", "res://scenes/game_over.tscn")
+	#get_tree().change_scene()
+
+
+func _on_obstacle_player_hit(pos):
+	var particles = EXPLOSION.instantiate()
+	add_child(particles)
+	particles.position = pos
+	
+	particles.emitting = true
 
 func _on_obstacle_body_entered(body):
 	# Check if the colliding body is the player
 	# (assuming the player's collision shape has been added to a group "Player")
 	#if body.is_in_group("Player"):
-	print("in Herd: " + str(body))
+	#print("in Herd: " + str(body))
 	remove_follower()

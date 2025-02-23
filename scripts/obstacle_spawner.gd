@@ -136,7 +136,7 @@ func spawn_horse(used_tiles):
 func connect_horse(horse):
 	var callable_target = Callable(herd, "_horse_collected")
 	horse.connect("collected", callable_target)
-	print("horse connected")
+	#print("horse connected")
 
 func connect_signal(obstacle):
 	#print("Attempting to connect signal on obstacle")

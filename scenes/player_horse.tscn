@@ -1,7 +1,20 @@
-[gd_scene load_steps=21 format=3 uid="uid://dsyma6s8cdxqt"]
+[gd_scene load_steps=24 format=3 uid="uid://dsyma6s8cdxqt"]
 
 [ext_resource type="Texture2D" uid="uid://byynxvngjfbau" path="res://Sprites/Horses sprites.png" id="1_3ot6s"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wcxj8"]
+[ext_resource type="Material" uid="uid://dqslfqm06yf5p" path="res://shaders/player_horse.tres" id="1_x1c4v"]
+
+[sub_resource type="Gradient" id="Gradient_x6vuv"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0.330049, 0.438424, 0.669951)
+colors = PackedColorArray(0.205117, 0.205117, 0.205117, 1, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cb0uf"]
+gradient = SubResource("Gradient_x6vuv")
+width = 6
+height = 3
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_05ipp"]
 atlas = ExtResource("1_3ot6s")
@@ -161,7 +174,13 @@ radius = 3.0
 collision_layer = 2
 script = ExtResource("1_wcxj8")
 
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(-4.47035e-07, 3.625)
+scale = Vector2(2, 1.6875)
+texture = SubResource("GradientTexture2D_cb0uf")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = ExtResource("1_x1c4v")
 sprite_frames = SubResource("SpriteFrames_i33sb")
 animation = &"purple_jump"
 autoplay = "purple_run"

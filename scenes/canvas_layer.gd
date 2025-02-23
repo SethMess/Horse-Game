@@ -15,6 +15,6 @@ func _process(delta):
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
-		print("pressed")
+		#print("pressed")
 		get_tree().paused = not get_tree().paused
 		#visible = get_tree().paused

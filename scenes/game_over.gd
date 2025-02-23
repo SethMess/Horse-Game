@@ -1,12 +1,15 @@
-extends Panel
+extends "res://scripts/main_menu.gd"
 
-@onready var start_button = $StartButton
-const GAME = preload("res://scenes/game.tscn")
+
+#@onready var start_button = $StartButton
+#const GAME = preload("res://scenes/game.tscn")
 # Called when the node enters the scene tree for the first time.
 
+@onready var score_label = $ScoreLabel
 
 func _ready():
-	pass
+	score_label.text = "Score: " + str(int(Globals.final_score))
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -10,6 +10,7 @@ var z_velocity = 0.0
 @onready var sprite = $AnimatedSprite2D # Make sure this is the actual name of your sprite node
 @onready var collision_shape = $CollisionShape2D
 @onready var collision_shape_2d = $CollisionShape2D
+@onready var shadow_sprite = $Shadow
 
 signal player_jumped
 #signal player_hit
@@ -39,16 +40,44 @@ func _physics_process(delta):
 
 	# Apply sprite visual height offset (z_position is negative when "in the air")
 	sprite.position.y = z_position
-
+	shadow_shrink(shadow_sprite, z_position)
 	# Squash & Stretch
 	apply_squash_and_stretch()
-	
+
+
+func shadow_shrink(shadow, z):
+	# Make shadow smaller and more transparent as the horse jumps
+	shadow.scale = Vector2(2, 2) * (1 + (z / 80.0))
+	shadow.modulate.a = clamp(1 + (z / 200.0), 0.3, 1.0)
+
 func jump():
 	player_jumped.emit()
 	z_velocity = JUMP_VELOCITY
 	collision_shape.disabled = true
 	#SET TO JUMP ANIMATION
 	sprite.play("purple_jump")
+	
+	
+
+func flash_red(is_game_over):
+	# Set the flash uniform to 1
+	sprite.material.set("shader_param/flash_strength", 1.0)
+	
+	# Create a one-shot timer and wait for 0.5 seconds before resetting the flash
+	var timer = get_tree().create_timer(0.2)
+	await timer.timeout
+	sprite.material.set("shader_param/flash_strength", 0.0)
+	if is_game_over:
+		queue_free()
+
+
+#func flash_red():
+	## Get the player's shader material (assuming it’s on $Sprite2D)
+	#var material = $Sprite2D.material
+	#material.set("shader_param/flash_strength", 1.0)
+	## Create a tween to interpolate flash_strength from 1 to 0 over 0.5 seconds.
+	
+
 	
 func z_axis_stuff(delta):
 		# Apply gravity and jump height
@@ -71,10 +100,3 @@ func apply_squash_and_stretch():
 		sprite.scale = Vector2(0.8, 1.2) # Squash
 	else:
 		sprite.scale = Vector2(1, 1) # Normal when grounded
-
-
-#func _on_body_entered(body):
-	#pass
-	##print(body)
-	##if body.is_in_group("obstacle"):  # make sure obstacles are in a group, e.g., "obstacle"
-		###player_hit.emit()

@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var position_offset: Vector2 = Vector2.ZERO  # Each follower can have its own offset
 @onready var sprite = $AnimatedSprite2D
 @onready var collision_shape = $CollisionShape2D
+@onready var shadow_sprite = $Shadow
 
 @onready var player_horse = $"../player_horse"  # Make sure this path is correct!
 var target: Node2D = player_horse
@@ -39,12 +40,15 @@ func _physics_process(delta):
 		velocity = diff * follow_speed
 		z_axis_stuff(delta)
 		sprite.position.y = z_position
-
+		shadow_shrink(shadow_sprite, z_position)
 		apply_squash_and_stretch()
 		
 		move_and_slide()
 
-
+func shadow_shrink(shadow, z):
+	# Make shadow smaller and more transparent as the horse jumps
+	shadow.scale = Vector2(2, 2) * (1 + (z / 80.0))
+	shadow.modulate.a = clamp(1 + (z / 200.0), 0.3, 1.0)
 
 func jump():
 	if self != null and collision_shape != null:

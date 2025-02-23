@@ -1,7 +1,10 @@
 extends Node
 
-var scroll_speed = 24.0  # Or whatever your desired speed is
+var default_scroll_speed = 24.0
+var scroll_speed = default_scroll_speed  # Or whatever your desired speed is
 var acceleration: float = 0.3 # pixels per second per second
+var score = 0
+var final_score = 0
 
 
 
@@ -15,3 +18,4 @@ func _ready():
 
 func _process(delta):
 	Globals.scroll_speed += acceleration * delta
+	
