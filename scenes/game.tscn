@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/herd.gd" id="5_0llte"]
 [ext_resource type="Script" path="res://scripts/score_manager.gd" id="6_23eem"]
 [ext_resource type="Script" path="res://scenes/canvas_layer.gd" id="7_rty47"]
-[ext_resource type="AudioStream" uid="uid://bf3h6fhinp6xn" path="res://sounds/horse_song.wav" id="9_tayt0"]
+[ext_resource type="AudioStream" uid="uid://cijfb0yip808f" path="res://sounds/horse_song.mp3" id="9_0wxru"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pt3fo"]
 texture = ExtResource("2_c8yf2")
@@ -91,7 +91,8 @@ transform = Transform2D(100, 0, 0, 100, 0, 0)
 script = ExtResource("7_rty47")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("9_tayt0")
+stream = ExtResource("9_0wxru")
+autoplay = true
 
 [connection signal="player_jumped" from="Herd/player_horse" to="Herd" method="_on_player_horse_player_jumped"]
 [connection signal="timeout" from="Herd/Timer" to="Herd" method="_on_timer_timeout"]
