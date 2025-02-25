@@ -11,6 +11,7 @@ var z_velocity = 0.0
 @onready var collision_shape = $CollisionShape2D
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var shadow_sprite = $Shadow
+@onready var animation_player = $AnimationPlayer
 
 signal player_jumped
 #signal player_hit
@@ -53,13 +54,17 @@ func shadow_shrink(shadow, z):
 func jump():
 	player_jumped.emit()
 	z_velocity = JUMP_VELOCITY
-	collision_shape.disabled = true
+	#collision_shape.disabled = true
+	#collision_mask = 2 
+	collision_layer = 2
 	#SET TO JUMP ANIMATION
 	sprite.play("purple_jump")
+	animation_player.play("Jump_sound")
 	
 	
 
 func flash_red(is_game_over):
+	animation_player.play("Hit_sound")
 	# Set the flash uniform to 1
 	sprite.material.set("shader_param/flash_strength", 1.0)
 	
@@ -90,8 +95,10 @@ func z_axis_stuff(delta):
 			z_position = 0
 			z_velocity = 0
 			
-			collision_shape.disabled = false
+			#collision_shape.disabled = false
+			collision_layer = 1
 			sprite.play("purple_run")
+			animation_player.play("RESET")
 
 func apply_squash_and_stretch():
 	if z_velocity < 0: # Going Up

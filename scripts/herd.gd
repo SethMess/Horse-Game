@@ -5,6 +5,8 @@ var followers := []
 @onready var player_horse = $player_horse
 const PLAYER_HIT = preload("res://scenes/player_hit.tscn")
 const EXPLOSION = preload("res://scenes/explosion.tscn")
+@onready var animation_player = $AnimationPlayer
+
 func _ready():
 	pass
 	#player_hit.connect(_on_player_horse_player_hit)
@@ -32,17 +34,11 @@ func add_follower(pos, index):
 	call_deferred("add_child", follower)
 
 
-func _on_timer_timeout():
-	pass
-	#if followers.size() < 5:
-		#add_follower()
-	#print("added follower")
-	#pass # Replace with function body.
+
 	
 func _horse_collected(pos, index):
-	#print("adding follower")
+	animation_player.play("Collect")
 	if followers.size() < 10:
-		#print(pos)
 		add_follower(pos, index)
 
 

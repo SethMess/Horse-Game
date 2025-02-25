@@ -319,7 +319,7 @@ animations = [{
 }]
 
 [node name="HorseCollectable" type="Area2D"]
-collision_mask = 3
+collision_layer = 4
 script = ExtResource("1_wn0kr")
 
 [node name="Shadow" type="Sprite2D" parent="."]

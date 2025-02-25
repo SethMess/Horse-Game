@@ -1,8 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://dsyma6s8cdxqt"]
+[gd_scene load_steps=30 format=3 uid="uid://dsyma6s8cdxqt"]
 
 [ext_resource type="Texture2D" uid="uid://byynxvngjfbau" path="res://Sprites/Horses sprites.png" id="1_3ot6s"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_wcxj8"]
 [ext_resource type="Material" uid="uid://dqslfqm06yf5p" path="res://shaders/player_horse.tres" id="1_x1c4v"]
+[ext_resource type="AudioStream" uid="uid://dovre5hx4uu6x" path="res://sounds/Jump.wav" id="4_fljep"]
+[ext_resource type="AudioStream" uid="uid://crkgmr8s1wekw" path="res://sounds/Hit.wav" id="5_2eud2"]
 
 [sub_resource type="Gradient" id="Gradient_x6vuv"]
 interpolation_mode = 2
@@ -170,8 +172,74 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_3wwx5"]
 radius = 3.0
 
+[sub_resource type="Animation" id="Animation_fccqj"]
+resource_name = "Jump_sound"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerJump:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_046nm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerJump:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerHit:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_fe0h3"]
+resource_name = "Hit_sound"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerHit:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i6htn"]
+_data = {
+"Hit_sound": SubResource("Animation_fe0h3"),
+"Jump_sound": SubResource("Animation_fccqj"),
+"RESET": SubResource("Animation_046nm")
+}
+
 [node name="player" type="CharacterBody2D" groups=["Player"]]
-collision_layer = 2
+collision_mask = 6
 script = ExtResource("1_wcxj8")
 
 [node name="Shadow" type="Sprite2D" parent="."]
@@ -187,3 +255,16 @@ autoplay = "purple_run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3wwx5")
+
+[node name="PlayerJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_fljep")
+bus = &"Sound Effects"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i6htn")
+}
+
+[node name="PlayerHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_2eud2")
+bus = &"Sound Effects"
